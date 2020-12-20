@@ -1,13 +1,17 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <div>
-				App.js
+	render() {
+		return (
+			<div className="App">
+				<div>
+					App.js
+				</div>
 			</div>
-    </div>
-  );
+		);
+	}
 }
 
 export default App;
