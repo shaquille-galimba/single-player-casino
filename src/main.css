@@ -32,3 +32,8 @@ code {
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 }
+
+.row {
+	padding-top: 1em;
+	padding-bottom: 1em;
+}

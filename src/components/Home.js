@@ -11,23 +11,36 @@ class Home extends Component {
 	render() {
 		return (
 			<>
-				<div className="d-flex flex-column align-items-center justify-content-center">
-					<Image
-						src={logo}
-						class="img-thumbnail align-self-center"
-						width={200}
-						height={200}
-					/>
-					<h1>Welcome to Single Player Casino!</h1>
-					<p className="fs-6">Please choose a game:</p>
-					<Row>
-						<Col className="text-center">
-							<Link to="/blackjack">
-								<Button variant="light">Blackjack</Button>
-							</Link>
-						</Col>
-					</Row>
-				</div>
+				<Row>
+					<Col className='text-center'>
+						<Image
+							src={logo}
+							class="img-thumbnail align-self-center"
+							width={200}
+							height={200}
+						/>
+					</Col>
+				</Row>
+				<Row>
+					<Col className='text-center'>
+						<h1>Welcome to Single Player Casino!</h1>
+					</Col>
+				</Row>
+				<Row>
+					<Col className='text-center'>
+						<p>Please choose a game:</p>
+					</Col>
+				</Row>
+				<Row>
+					<Col className="text-center">
+						<Link to="/blackjack">
+							<Button variant="light">Blackjack</Button>
+						</Link>
+					</Col>
+					<Col className="text-center">
+						<Button variant="light" className="text-nowrap" disabled>Coming soon</Button>
+					</Col>
+				</Row>
 			</>
 		)
 	}
