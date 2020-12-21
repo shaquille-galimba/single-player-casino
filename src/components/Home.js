@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
-import logo from '../assets/suits.png'
+// import logo from '../assets/suits.png'
 import Image from 'react-bootstrap/Image'
 
 class Home extends Component {
@@ -14,7 +14,7 @@ class Home extends Component {
 				<Row>
 					<Col className='text-center'>
 						<Image
-							src={logo}
+							src={this.props.logo}
 							class="img-thumbnail align-self-center"
 							width={200}
 							height={200}

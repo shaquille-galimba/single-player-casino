@@ -30,7 +30,9 @@ class App extends Component {
 						</Link>
 					</Navbar>
 					<Container>
-						<Route exact path="/" component={Home} logo={logo}/>
+						<Route exact path="/">
+							<Home logo={logo}/>
+						</Route>
 						<Route exact path="/blackjack" component={BlackjackContainer}/>
 					</Container>
 				</div>
