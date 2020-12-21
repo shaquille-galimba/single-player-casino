@@ -11,7 +11,7 @@ import {
   Route,
 	Link
 } from "react-router-dom";
-import Blackjack from './components/Blackjack';
+import BlackjackContainer from './containers/BlackjackContainer';
 import Home from './components/Home'
 
 class App extends Component {
@@ -30,8 +30,8 @@ class App extends Component {
 						</Link>
 					</Navbar>
 					<Container>
-						<Route exact path="/" component={Home} />
-						<Route exact path="/blackjack" component={Blackjack}/>
+						<Route exact path="/" component={Home} logo={logo}/>
+						<Route exact path="/blackjack" component={BlackjackContainer}/>
 					</Container>
 				</div>
 			</Router>
