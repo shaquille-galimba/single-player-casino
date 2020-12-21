@@ -13,3 +13,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.borderGrey {
+	border: 1px solid grey;
+}
+
+.customHeight {
+	height: 100%;
+}
+
+.btn-light {
+	border: 1px solid black;
+}
+
+.container {
+	height: 100vh;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
