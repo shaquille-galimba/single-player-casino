@@ -12,7 +12,7 @@ import {
 	Link
 } from "react-router-dom";
 import BlackjackContainer from './containers/BlackjackContainer';
-import Home from './components/Home'
+import Home from './containers/Home'
 
 class App extends Component {
 
