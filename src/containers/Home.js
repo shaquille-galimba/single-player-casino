@@ -34,11 +34,11 @@ class Home extends Component {
 				<Row>
 					<Col className="text-center">
 						<Link to="/blackjack">
-							<Button variant="light">Blackjack</Button>
+							<Button variant="dark">Blackjack</Button>
 						</Link>
 					</Col>
 					<Col className="text-center">
-						<Button variant="light" className="text-nowrap" disabled>Coming soon</Button>
+						<Button variant="dark" className="text-nowrap" disabled>Coming soon</Button>
 					</Col>
 				</Row>
 			</>
