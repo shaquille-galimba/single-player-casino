@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -33,7 +33,7 @@ class Home extends Component {
 				</Row>
 				<Row>
 					<Col className="text-center">
-						<Link to="/blackjack">
+						<Link to="/blackjack/enter_name">
 							<Button variant="light">Blackjack</Button>
 						</Link>
 					</Col>

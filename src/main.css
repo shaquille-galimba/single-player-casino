@@ -20,7 +20,7 @@ code {
 }
 
 .customHeight {
-	/* height: 100%; */
+	height: 50%;
 }
 
 .btn-light {
@@ -36,4 +36,17 @@ code {
 .row {
 	padding-top: 1em;
 	padding-bottom: 1em;
+}
+
+.form-input-material {
+  --input-default-border-color: white;
+  --input-border-bottom-color: white;
+
+  input {
+    color: white;
+  }
+}
+
+.form-input-material {
+  margin: 12px 0;
 }
