@@ -33,7 +33,7 @@ class Home extends Component {
 				</Row>
 				<Row>
 					<Col className="text-center">
-						<Link to="/blackjack/enter_name">
+						<Link to="/blackjack">
 							<Button variant="light">Blackjack</Button>
 						</Link>
 					</Col>

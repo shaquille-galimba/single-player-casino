@@ -9,11 +9,13 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-	Link
+	Link,
+	useParams,
+	useRouteMatch
 } from "react-router-dom";
 import BlackjackContainer from './containers/BlackjackContainer';
 import Home from './containers/Home'
-import FormContainer from './containers/FormContainer'
+// import FormContainer from './containers/FormContainer'
 
 class App extends Component {
 
@@ -31,11 +33,13 @@ class App extends Component {
 						</Link>
 					</Navbar>
 					<Container>
-						<Route exact path="/">
-							<Home logo={logo}/>
-						</Route>
-						<Route exact path="/blackjack/enter_name" component={FormContainer}/>
-						<Route exact path="/blackjack" component={BlackjackContainer}/>
+						<Switch>
+							<Route exact path="/">
+								<Home logo={logo}/>
+							</Route>
+							{/* <Route exact path="/blackjack/enter_name" component={FormContainer}/> */}
+							<Route path="/blackjack" component={BlackjackContainer}/>
+						</Switch>
 					</Container>
 				</div>
 			</Router>

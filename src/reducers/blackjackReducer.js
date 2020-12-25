@@ -1,15 +1,15 @@
-const blackjackReducer = (state = { game: {}, players: [], loading: false }, action) => {
+const blackjackReducer = (state = { game: {}, players: [], current_player: {}, loading: false }, action) => {
 	switch(action.type) {
-		case 'LOADING_GAME':
+		case 'LOADING_PLAYER':
 			return {
 				...state,
-				games: state.game,
+				current_player: state.current_player,
 				loading: true
 			}
-		case 'ADD_GAMES':
+		case 'ADD_PLAYER':
 			return {
 				...state,
-				games: action.game,
+				current_player: action.current_player,
 				loading: false
 			}
 

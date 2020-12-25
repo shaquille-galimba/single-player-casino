@@ -9,7 +9,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import blackjackReducer from './reducers/blackjackReducer.js'
 
-const store = createStore(blackjackReducer)
+const store = createStore(blackjackReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>

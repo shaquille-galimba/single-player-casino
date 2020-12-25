@@ -18,13 +18,13 @@ class PlayerNameForm extends Component {
 		}, console.log(this.state.text))
 	}
 
-	handleOnSubmit = e => {
+	handleSubmit = e => {
 		e.preventDefault()
 	}
 
 	render() {
 		return (
-			<form>
+			<form onSubmit={e => this.handleSubmit(e)}>
 				<h1>Please enter your name</h1>
 				<div className="form-input-material">
 					<input
