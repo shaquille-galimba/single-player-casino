@@ -16,7 +16,7 @@ const ProfitDisplay = props => {
 				</Popover>
 			}
 		>
-			<button type="button" class="btn btn-dark">{props.value}</button>
+			<button type="button" className="btn btn-dark">{props.value}</button>
 		</OverlayTrigger>
 	)
 }

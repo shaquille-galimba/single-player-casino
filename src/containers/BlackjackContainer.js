@@ -38,7 +38,9 @@ const BlackjackContainer = props => {
 						<button className="btn btn-light">New Game</button>
 					</Link>
 				</Col>
-				<Col className="text-center"></Col>
+				<Col className="text-center">
+					<button className="btn btn-dark btn-sm">High scores</button>
+				</Col>
 			</Row>
 
 			<Switch>
