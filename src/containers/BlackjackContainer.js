@@ -29,9 +29,9 @@ const BlackjackContainer = props => {
 		<div>
 			<Row>
 				{/* <img src={images['10C.png'].default} width={150} height={200}/> */}
-				<Col>Buttons</Col>
-				<Col><Link to={`${url}/enter_name`}>Play</Link></Col>
-				<Col>Buttons</Col>
+				<Col className="text-end">Buttons</Col>
+				<Col className="text-center"><Link to={`${url}/enter_name`}>New Game</Link></Col>
+				<Col className="text-end">Buttons</Col>
 			</Row>
 			<Switch>
 				<Route exact path={`${path}/enter_name`}>
