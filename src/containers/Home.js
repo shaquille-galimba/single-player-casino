@@ -15,7 +15,7 @@ class Home extends Component {
 					<Col className='text-center'>
 						<Image
 							src={this.props.logo}
-							class="img-thumbnail align-self-center"
+							className="img-thumbnail align-self-center"
 							width={200}
 							height={200}
 						/>

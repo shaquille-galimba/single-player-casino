@@ -5,7 +5,6 @@ const ProfitDisplay = props => {
 
 	return (
 		<OverlayTrigger
-			trigger="hover"
 			placement="bottom"
 			overlay={
 				<Popover>

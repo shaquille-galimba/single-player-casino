@@ -26,7 +26,7 @@ class App extends Component {
 					<Navbar bg="dark" variant="dark">
 						<Link to="/">
 							<Navbar.Brand>
-								<img src={logo} width="30" height="30"/>{' '}
+								<img className="img-thumbnail align-self-center" src={logo} width="30" height="30"/>{' '}
 								Single Player Casino
 							</Navbar.Brand>
 						</Link>

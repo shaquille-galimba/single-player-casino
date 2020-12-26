@@ -1,17 +1,19 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Spinner from 'react-bootstrap/Spinner'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-	Link,
-	useParams,
-	useRouteMatch
+	Link
 } from "react-router-dom";
 import FormContainer from './FormContainer'
 import Play from '../components/Play'
 import ProfitDisplay from '../components/ProfitDisplay'
+import { fetchGame } from '../actions/playerActions'
 
 function importAll(r) {
 	let images = {};
@@ -21,39 +23,72 @@ function importAll(r) {
 
 const images = importAll(require.context('../assets', false, /\.(png|jpe?g|svg)$/));
 
-const BlackjackContainer = props => {
-	let { path, url } = useRouteMatch();
-	return(
-		<div>
-			<Row>
-				<Col className="text-center">
-					<ButtonGroup size="sm">
-						<ProfitDisplay title="Blackjack earnings" content="1000" value="Game profit"/>
-						<ProfitDisplay title="Player earnings" content="-1000" value="Player profit"/>
-					</ButtonGroup>
-				</Col>
+class BlackjackContainer extends Component {
 
-				<Col className="text-center">
-					<Link to={`${url}/enter_name`}>
-						<button className="btn btn-light">New Game</button>
-					</Link>
-				</Col>
-				<Col className="text-center">
-					<button className="btn btn-dark btn-sm">High scores</button>
-				</Col>
-			</Row>
+	componentDidMount() {
+		this.props.fetchGame()
+	}
 
-			<Switch>
-				<Route exact path={`${path}/enter_name`}>
-					<FormContainer />
-				</Route>
-				<Route exact path={`${path}/play`}>
-					<Play />
-				</Route>
-			</Switch>
-		</div>
-	)
+	handleLoading = () => {
+		if (this.props.loading) {
+			return (
+				<Spinner animation="border" role="status">
+					<span className="sr-only">Loading...</span>
+				</Spinner>
+			)
+		} else {
+			return (
+				<Link to={`/blackjack/enter_name`}>
+					<button className="btn btn-light">New Game</button>
+				</Link>
+			)
+		}
+	}
 
+	render() {
+
+		return(
+			<div>
+				<Row>
+					<Col className="text-center">
+						<ButtonGroup size="sm">
+							<ProfitDisplay title="Blackjack earnings" content="1000" value="Game profit"/>
+							<ProfitDisplay title="Player earnings" content="-1000" value="Player profit"/>
+						</ButtonGroup>
+					</Col>
+
+					<Col className="text-center">
+						{this.handleLoading()}
+					</Col>
+					<Col className="text-center">
+						<button className="btn btn-dark btn-sm">High scores</button>
+					</Col>
+				</Row>
+
+				<Switch>
+					<Route exact path={`/blackjack/enter_name`}>
+						<FormContainer />
+					</Route>
+					<Route exact path={`/blackjack/play`}>
+						<Play />
+					</Route>
+				</Switch>
+			</div>
+		)
+	}
 }
 
-export default BlackjackContainer
+const mapStateToProps = state => {
+	return {
+		game: state.game,
+		loading: state.loading
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		fetchGame: () => dispatch(fetchGame())
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlackjackContainer)
