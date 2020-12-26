@@ -17,7 +17,7 @@ class PlayerNameForm extends Component {
 	handleOnChange = e => {
 		this.setState({
 			text: e.target.value
-		}, console.log(this.state.text))
+		}, () => console.log(this.state.text))
 	}
 
 	handleSubmit = e => {

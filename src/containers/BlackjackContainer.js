@@ -32,23 +32,14 @@ class BlackjackContainer extends Component {
 	handleLoading = () => {
 		if (this.props.loading) {
 			return (
-				<Spinner animation="border" role="status">
-					<span className="sr-only">Loading...</span>
-				</Spinner>
+				<div  className="text-center">
+					<Spinner animation="border" role="status">
+						<span className="sr-only">Loading...</span>
+					</Spinner>
+				</div>
 			)
 		} else {
 			return (
-				<Link to={`/blackjack/enter_name`}>
-					<button className="btn btn-light">New Game</button>
-				</Link>
-			)
-		}
-	}
-
-	render() {
-
-		return(
-			<div>
 				<Row>
 					<Col className="text-center">
 						<ButtonGroup size="sm">
@@ -58,12 +49,24 @@ class BlackjackContainer extends Component {
 					</Col>
 
 					<Col className="text-center">
-						{this.handleLoading()}
+						<Link to={`/blackjack/enter_name`}>
+							<button className="btn btn-light">New Game</button>
+						</Link>
 					</Col>
 					<Col className="text-center">
 						<button className="btn btn-dark btn-sm">High scores</button>
 					</Col>
 				</Row>
+			)
+		}
+	}
+
+	render() {
+
+		return(
+			<div>
+
+				{this.handleLoading()}
 
 				<Switch>
 					<Route exact path={`/blackjack/enter_name`}>
