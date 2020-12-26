@@ -39,11 +39,12 @@ class BlackjackContainer extends Component {
 				</div>
 			)
 		} else {
+
 			return (
 				<Row>
 					<Col className="text-center">
 						<ButtonGroup size="sm">
-							<ProfitDisplay title="Blackjack earnings" content="1000" value="Game profit"/>
+							<ProfitDisplay title="Blackjack earnings" content={this.props.game.profit} value="Game profit"/>
 							<ProfitDisplay title="Player earnings" content="-1000" value="Player profit"/>
 						</ButtonGroup>
 					</Col>
