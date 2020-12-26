@@ -44,8 +44,8 @@ class BlackjackContainer extends Component {
 				<Row>
 					<Col className="text-center">
 						<ButtonGroup size="sm">
-							<ProfitDisplay title="Blackjack earnings" content={this.props.game.profit} value="Game profit"/>
-							<ProfitDisplay title="Player earnings" content="-1000" value="Player profit"/>
+							<ProfitDisplay title={this.props.game.name} content={this.props.game.profit} value={this.props.game.name}/>
+							<ProfitDisplay title="Player" content="-1000" value="Player"/>
 						</ButtonGroup>
 					</Col>
 
