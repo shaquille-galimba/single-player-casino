@@ -13,7 +13,7 @@ import {
 import FormContainer from './FormContainer'
 import Play from '../components/Play'
 import ProfitDisplay from '../components/ProfitDisplay'
-import { fetchGame } from '../actions/playerActions'
+import { fetchGame, fetchCurrentPlayer } from '../actions/playerActions'
 
 function importAll(r) {
 	let images = {};
@@ -29,6 +29,15 @@ class BlackjackContainer extends Component {
 		this.props.fetchGame()
 	}
 
+	handlePlayerProfitDisplay = () => {
+		const { current_player } = this.props
+		if (Object.keys(current_player).length === 0) {
+			return null
+		} else {
+			return(<ProfitDisplay title={current_player.name} content={current_player.profit} value={current_player.name}/>)
+		}
+	}
+
 	handleLoading = () => {
 		if (this.props.loading) {
 			return (
@@ -39,13 +48,13 @@ class BlackjackContainer extends Component {
 				</div>
 			)
 		} else {
-
+			const { game } = this.props
 			return (
 				<Row>
 					<Col className="text-center">
 						<ButtonGroup size="sm">
-							<ProfitDisplay title={this.props.game.name} content={this.props.game.profit} value={this.props.game.name}/>
-							<ProfitDisplay title="Player" content="-1000" value="Player"/>
+							<ProfitDisplay title={game.name} content={game.profit} value={game.name}/>
+							{this.handlePlayerProfitDisplay()}
 						</ButtonGroup>
 					</Col>
 
@@ -63,6 +72,7 @@ class BlackjackContainer extends Component {
 	}
 
 	render() {
+		console.log(this.props)
 
 		return(
 			<div>
@@ -71,7 +81,7 @@ class BlackjackContainer extends Component {
 
 				<Switch>
 					<Route exact path={`/blackjack/enter_name`}>
-						<FormContainer />
+						<FormContainer fetchCurrentPlayer={this.props.fetchCurrentPlayer}/>
 					</Route>
 					<Route exact path={`/blackjack/play`}>
 						<Play />
@@ -85,13 +95,15 @@ class BlackjackContainer extends Component {
 const mapStateToProps = state => {
 	return {
 		game: state.game,
-		loading: state.loading
+		loading: state.loading,
+		current_player: state.current_player
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchGame: () => dispatch(fetchGame())
+		fetchGame: () => dispatch(fetchGame()),
+		fetchCurrentPlayer: name => dispatch(fetchCurrentPlayer(name))
 	}
 }
 

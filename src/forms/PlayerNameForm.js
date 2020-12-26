@@ -22,6 +22,7 @@ class PlayerNameForm extends Component {
 
 	handleSubmit = e => {
 		e.preventDefault()
+		this.props.fetchCurrentPlayer(this.state.text)
 		this.setState({isSubmitted: true})
 	}
 

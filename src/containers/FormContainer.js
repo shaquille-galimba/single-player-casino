@@ -9,9 +9,9 @@ class FormContainer extends Component {
 		return (
 			<Row className='d-flex align-items-center customHeight'>
 				<Col className='text-center'>
-					<PlayerNameForm />
+					<PlayerNameForm fetchCurrentPlayer={this.props.fetchCurrentPlayer}/>
 				</Col>
-			</Row>			
+			</Row>
 		)
 	}
 }

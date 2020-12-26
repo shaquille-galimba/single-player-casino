@@ -10,3 +10,21 @@ export const fetchGame = () => {
 		})
 	}
 }
+
+export const fetchCurrentPlayer = name => {
+	return (dispatch) => {
+		const data = {name}
+		
+		fetch(`${api_url}/games/1/players`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+		.then(response => response.json())
+		.then(player => {
+			dispatch({ type: 'ADD_CURRENT_PLAYER', current_player: {...player.data.attributes, id: player.data.id}})
+		})
+	}
+}
