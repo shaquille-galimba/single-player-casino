@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import PlayerNameForm from '../forms/PlayerNameForm'
 import { Link } from 'react-router-dom'
 
@@ -23,12 +21,12 @@ class FormContainer extends Component {
 
 	render() {
 		return (
-			<Row className='d-flex align-items-center customHeight'>
-				<Col className='text-center'>
+			<div className='row d-flex align-items-center customHeight'>
+				<div className='col text-center'>
 					<PlayerNameForm fetchCurrentPlayer={this.props.fetchCurrentPlayer}/>
 					{this.handleContinueWithCurrentPlayer()}
-				</Col>
-			</Row>
+				</div>
+			</div>
 		)
 	}
 }

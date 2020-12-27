@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Spinner from 'react-bootstrap/Spinner'
 import {
@@ -50,38 +48,39 @@ class BlackjackContainer extends Component {
 		} else {
 			const { game } = this.props
 			return (
-				<Row>
-					<Col className="text-center">
+				<div className='row'>
+					<div className="col text-center">
 						<ButtonGroup size="sm">
 							<ProfitDisplay title={game.name} content={game.profit} value={game.name}/>
 							{this.handlePlayerProfitDisplay()}
 						</ButtonGroup>
-					</Col>
+					</div>
 
-					<Col className="text-center">
+					<div className="col text-center">
 						<Link to={`/blackjack/enter_name`}>
 							<button className="btn btn-light">New Game</button>
 						</Link>
-					</Col>
-					<Col className="text-center">
+					</div>
+					<div className="col text-center">
 						<button className="btn btn-dark btn-sm">High scores</button>
-					</Col>
-				</Row>
+					</div>
+				</div>
 			)
 		}
 	}
 
 	render() {
+		const { fetchCurrentPlayer, current_player, game } = this.props
 		return(
 			<div>
 				{this.handleLoading()}
 
 				<Switch>
 					<Route exact path={`/blackjack/enter_name`}>
-						<FormContainer fetchCurrentPlayer={this.props.fetchCurrentPlayer} current_player={this.props.current_player}/>
+						<FormContainer fetchCurrentPlayer={fetchCurrentPlayer} current_player={current_player}/>
 					</Route>
 					<Route exact path={`/blackjack/play`}>
-						<Play game={this.props.game} current_player={this.props.current_player}/>
+						<Play game={game} current_player={current_player}/>
 					</Route>
 				</Switch>
 			</div>

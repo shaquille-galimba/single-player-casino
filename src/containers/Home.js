@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 // import logo from '../assets/suits.png'
@@ -11,36 +9,36 @@ class Home extends Component {
 	render() {
 		return (
 			<>
-				<Row>
-					<Col className='text-center'>
+				<div className='row'>
+					<div className='col text-center'>
 						<Image
 							src={this.props.logo}
 							className="img-thumbnail align-self-center"
 							width={200}
 							height={200}
 						/>
-					</Col>
-				</Row>
-				<Row>
-					<Col className='text-center'>
+					</div>
+				</div>
+				<div className='row'>
+					<div className='col text-center'>
 						<h1>Welcome to Single Player Casino!</h1>
-					</Col>
-				</Row>
-				<Row>
-					<Col className='text-center'>
+					</div>
+				</div>
+				<div className='row'>
+					<div className='col text-center'>
 						<p>Please choose a game:</p>
-					</Col>
-				</Row>
-				<Row>
-					<Col className="text-center">
+					</div>
+				</div>
+				<div className='row'>
+					<div className="col text-center">
 						<Link to="/blackjack">
 							<Button variant="dark">Blackjack</Button>
 						</Link>
-					</Col>
-					<Col className="text-center">
+					</div>
+					<div className="col text-center">
 						<Button variant="dark" className="text-nowrap" disabled>Coming soon</Button>
-					</Col>
-				</Row>
+					</div>
+				</div>
 			</>
 		)
 	}
