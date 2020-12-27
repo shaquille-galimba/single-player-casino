@@ -72,19 +72,16 @@ class BlackjackContainer extends Component {
 	}
 
 	render() {
-		console.log(this.props)
-
 		return(
 			<div>
-
 				{this.handleLoading()}
 
 				<Switch>
 					<Route exact path={`/blackjack/enter_name`}>
-						<FormContainer fetchCurrentPlayer={this.props.fetchCurrentPlayer}/>
+						<FormContainer fetchCurrentPlayer={this.props.fetchCurrentPlayer} current_player={this.props.current_player}/>
 					</Route>
 					<Route exact path={`/blackjack/play`}>
-						<Play />
+						<Play game={this.props.game} current_player={this.props.current_player}/>
 					</Route>
 				</Switch>
 			</div>
