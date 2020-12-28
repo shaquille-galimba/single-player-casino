@@ -18,7 +18,7 @@ class Play extends Component {
     };
   }
 
-  generateDeck() {
+  generateDeck = () => {
     const cards = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'];
     const suits = ['♦','♣','♥','♠'];
     const deck = [];
@@ -30,7 +30,7 @@ class Play extends Component {
     return deck;
   }
 
-  dealCards(deck) {
+  dealCards = (deck) =>  {
     const playerCard1 = this.getRandomCard(deck);
     const dealerCard1 = this.getRandomCard(playerCard1.updatedDeck);
     const playerCard2 = this.getRandomCard(dealerCard1.updatedDeck);
@@ -49,7 +49,7 @@ class Play extends Component {
     return {updatedDeck: playerCard2.updatedDeck, player, dealer};
   }
 
-  startNewGame(type) {
+  startNewGame = (type) =>  {
     if (type === 'continue') {
       if (this.state.wallet > 0) {
         const deck = (this.state.deck.length < 10) ? this.generateDeck() : this.state.deck;
@@ -83,7 +83,7 @@ class Play extends Component {
     }
   }
 
-  getRandomCard(deck) {
+  getRandomCard = (deck) =>  {
     const updatedDeck = deck;
     const randomIndex = Math.floor(Math.random() * updatedDeck.length);
     const randomCard = updatedDeck[randomIndex];
@@ -106,7 +106,7 @@ class Play extends Component {
     }
   }
 
-  hit() {
+  hit = () =>  {
     if (!this.state.gameOver) {
       if (this.state.currentBet) {
         const { randomCard, updatedDeck } = this.getRandomCard(this.state.deck);
@@ -127,14 +127,14 @@ class Play extends Component {
     }
   }
 
-  dealerDraw(dealer, deck) {
+  dealerDraw = (dealer, deck) =>  {
     const { randomCard, updatedDeck } = this.getRandomCard(deck);
     dealer.cards.push(randomCard);
     dealer.count = this.getCount(dealer.cards);
     return { dealer, updatedDeck };
   }
 
-  getCount(cards) {
+  getCount = (cards) =>  {
     const rearranged = [];
     cards.forEach(card => {
       if (card.number === 'A') {
@@ -158,7 +158,7 @@ class Play extends Component {
     }, 0);
   }
 
-  stand() {
+  stand = () =>  {
     if (!this.state.gameOver) {
       // Show dealer's 2nd card
       const randomCard = this.getRandomCard(this.state.deck);
@@ -211,7 +211,7 @@ class Play extends Component {
     }
   }
 
-  getWinner(dealer, player) {
+  getWinner = (dealer, player) =>  {
     if (dealer.count > player.count) {
       return 'dealer';
     } else if (dealer.count < player.count) {
@@ -221,21 +221,12 @@ class Play extends Component {
     }
   }
 
-  inputChange(e) {
+  inputChange = (e) =>  {
     const inputValue = +e.target.value;
     this.setState({inputValue});
   }
 
-  // handleKeyDown(e) {
-  //   const enter = 13;
-  //   console.log(e.keyCode);
-	//
-  //   if (e.keyCode === enter) {
-  //     this.placeBet();
-  //   }
-  // }
-
-  componentWillMount() {
+  componentWillMount = () =>  {
     this.startNewGame();
   }
 
@@ -250,37 +241,43 @@ class Play extends Component {
 		} else {
 			return (
 				<>
-					<div className='row'>
-						<div className='col text-center'>
-							<table className="cards">
-								<tr>
-									{ this.state.dealer.cards.map((card, i) => {
-										return <Card key={i} number={card.number} suit={card.suit}/>;
-									}) }
-								</tr>
-							</table>
-							<p>Dealer's Hand ({ this.state.dealer.count })</p>
-						</div>
-					</div>
+					{
+						this.state.currentBet ?
+							<>
+								<div className='row'>
+									<div className='col text-center'>
+										<table className="cards">
+											<tr>
+												{ this.state.dealer.cards.map((card, i) => {
+													return <Card key={i} number={card.number} suit={card.suit}/>;
+												}) }
+											</tr>
+										</table>
+										<p>Dealer's Hand ({ this.state.dealer.count })</p>
+									</div>
+								</div>
 
-					<div className='row'>
-						<div className='col text-center'>
-							{ this.state.message }
-						</div>
-					</div>
+								<div className='row'>
+									<div className='col text-center'>
+										{ this.state.message }
+									</div>
+								</div>
 
-					<div className='row'>
-						<div className='col text-center'>
-							<p>Your Hand ({ this.state.player.count })</p>
-							<table className="cards">
-								<tr>
-									{ this.state.player.cards.map((card, i) => {
-										return <Card key={i} number={card.number} suit={card.suit}/>
-									}) }
-								</tr>
-							</table>
-						</div>
-					</div>
+								<div className='row'>
+									<div className='col text-center'>
+										<p>Your Hand ({ this.state.player.count })</p>
+										<table className="cards">
+											<tr>
+												{ this.state.player.cards.map((card, i) => {
+													return <Card key={i} number={card.number} suit={card.suit}/>
+												}) }
+											</tr>
+										</table>
+									</div>
+								</div>
+							</>
+						: null
+					}
 
 					<div className='row'>
 						<div className='col text-center'>
@@ -289,7 +286,7 @@ class Play extends Component {
 								!this.state.currentBet ?
 									<div className="input-bet">
 										<form onSubmit={(e) => {this.placeBet(e)}}>
-											<input className="bet" type="number" name="bet" placeholder="" autoComplete="off" step={50} value={this.state.inputValue} onChange={this.inputChange.bind(this)}/>
+											<input className="field" type="number" name="bet" placeholder="" autoComplete="off" step={50} value={this.state.inputValue} onChange={this.inputChange.bind(this)}/>
 											<input type="submit" className="btn btn-primary btn-sm" value="Place Bet"/>
 										</form>
 									</div>
@@ -306,12 +303,19 @@ class Play extends Component {
 					</div>
 
 					<div className='row'>
-						<div className='col text-center'>
-							<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
-							<button className="btn btn-info" onClick={() => {this.stand()}}>Stand</button>
-							<button className="btn btn-danger">x2</button>
-							<button className="btn btn-dark">Checkout</button>
-						</div>
+						{
+							this.state.currentBet ?
+								<>
+									<div className='col text-center'>
+										<p>Current Bet: ${this.state.currentBet}</p>
+										<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
+										<button className="btn btn-light" onClick={() => {this.stand()}}>Stand</button>
+										<button className="btn btn-danger">x2</button>
+										<button className="btn btn-dark">Checkout</button>
+									</div>
+								</>
+							: null
+						}
 					</div>
 				</>
 			)

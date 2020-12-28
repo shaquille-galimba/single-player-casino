@@ -35,15 +35,15 @@ class PlayerNameForm extends Component {
 						<input
 							type="text"
 							id="playerNameInput"
-							className="form-input-material"
+							className="field"
 							placeholder="Enter name"
 							autoComplete="off"
 							value={this.state.text}
 							onChange={(e) => this.handleOnChange(e)}
 							required
 						/>
+						<input type="submit" className="btn btn-light btn-sm"/>
 					</div>
-					<input type="submit" className="btn btn-primary"/>
 				</form>
 				{this.state.isSubmitted && <Redirect to="/blackjack/play" />}
 			</>
