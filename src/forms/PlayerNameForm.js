@@ -31,11 +31,11 @@ class PlayerNameForm extends Component {
 			<>
 				<form onSubmit={e => this.handleSubmit(e)}>
 					<h1>Please enter your name</h1>
-					<div className="form-input-material">
+					<div>
 						<input
 							type="text"
 							id="playerNameInput"
-							className="form-control-material"
+							className="form-input-material"
 							placeholder="Enter name"
 							autoComplete="off"
 							value={this.state.text}

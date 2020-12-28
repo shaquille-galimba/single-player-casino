@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import { Redirect } from 'react-router-dom';
 
 class Play extends Component {
@@ -76,7 +74,7 @@ class Play extends Component {
         deck: updatedDeck,
         dealer,
         player,
-        wallet: 100,
+        wallet: 1000,
         inputValue: '',
         currentBet: null,
         gameOver: false,
@@ -93,7 +91,8 @@ class Play extends Component {
     return { randomCard, updatedDeck };
   }
 
-  placeBet() {
+  placeBet = (e) => {
+		e.preventDefault()
     const currentBet = this.state.inputValue;
 
     if (currentBet > this.state.wallet) {
@@ -227,19 +226,17 @@ class Play extends Component {
     this.setState({inputValue});
   }
 
-  handleKeyDown(e) {
-    const enter = 13;
-    console.log(e.keyCode);
-
-    if (e.keyCode === enter) {
-      this.placeBet();
-    }
-  }
+  // handleKeyDown(e) {
+  //   const enter = 13;
+  //   console.log(e.keyCode);
+	//
+  //   if (e.keyCode === enter) {
+  //     this.placeBet();
+  //   }
+  // }
 
   componentWillMount() {
     this.startNewGame();
-    const body = document.querySelector('body');
-    body.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
 	handleEmptyCurrentPlayer = () => {
@@ -251,7 +248,73 @@ class Play extends Component {
 					</div>
 				</div>)
 		} else {
-			return (<div>Play!</div>)
+			return (
+				<>
+					<div className='row'>
+						<div className='col text-center'>
+							<table className="cards">
+								<tr>
+									{ this.state.dealer.cards.map((card, i) => {
+										return <Card key={i} number={card.number} suit={card.suit}/>;
+									}) }
+								</tr>
+							</table>
+							<p>Dealer's Hand ({ this.state.dealer.count })</p>
+						</div>
+					</div>
+
+					<div className='row'>
+						<div className='col text-center'>
+							{ this.state.message }
+						</div>
+					</div>
+
+					<div className='row'>
+						<div className='col text-center'>
+							<p>Your Hand ({ this.state.player.count })</p>
+							<table className="cards">
+								<tr>
+									{ this.state.player.cards.map((card, i) => {
+										return <Card key={i} number={card.number} suit={card.suit}/>
+									}) }
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div className='row'>
+						<div className='col text-center'>
+							<p>Wallet: ${ this.state.wallet }</p>
+							{
+								!this.state.currentBet ?
+									<div className="input-bet">
+										<form onSubmit={(e) => {this.placeBet(e)}}>
+											<input className="bet" type="number" name="bet" placeholder="" autoComplete="off" step={50} value={this.state.inputValue} onChange={this.inputChange.bind(this)}/>
+											<input type="submit" className="btn btn-primary btn-sm" value="Place Bet"/>
+										</form>
+									</div>
+								: null
+							}
+							{
+								this.state.gameOver ?
+									<div className="buttons">
+										<button className="btn btn-primary btn-sm" onClick={() => {this.startNewGame('continue')}}>Continue</button>
+									</div>
+								: null
+							}
+						</div>
+					</div>
+
+					<div className='row'>
+						<div className='col text-center'>
+							<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
+							<button className="btn btn-info" onClick={() => {this.stand()}}>Stand</button>
+							<button className="btn btn-danger">x2</button>
+							<button className="btn btn-dark">Checkout</button>
+						</div>
+					</div>
+				</>
+			)
 		}
 	}
 
