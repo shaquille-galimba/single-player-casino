@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import { Redirect } from 'react-router-dom';
 
 class PlayerNameForm extends Component {
@@ -17,7 +15,7 @@ class PlayerNameForm extends Component {
 	handleOnChange = e => {
 		this.setState({
 			text: e.target.value
-		}, () => console.log(this.state.text))
+		})
 	}
 
 	handleSubmit = e => {

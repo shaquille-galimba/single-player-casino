@@ -16,7 +16,7 @@ const blackjackReducer = (state = { game: {}, players: [], current_player: {}, l
 			return {
 				...state,
 				current_player: action.current_player
-			}
+			}		
 
 		default:
 			return state;

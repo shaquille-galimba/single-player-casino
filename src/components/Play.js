@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { updatePlayerScore } from '../actions/playerActions'
 
 class Play extends Component {
 
@@ -14,7 +16,8 @@ class Play extends Component {
       inputValue: '',
       currentBet: null,
       gameOver: false,
-      message: null
+      message: null,
+			checkedOut: false
     };
   }
 
@@ -221,10 +224,15 @@ class Play extends Component {
     }
   }
 
-  inputChange = (e) =>  {
+  inputChange = (e) => {
     const inputValue = +e.target.value;
     this.setState({inputValue});
   }
+
+	handleCheckout = () => {
+		this.props.updatePlayerScore(this.props.current_player.id, this.state.wallet)
+		this.setState({ checkedOut: true })
+	}
 
   componentWillMount = () =>  {
     this.startNewGame();
@@ -247,11 +255,13 @@ class Play extends Component {
 								<div className='row'>
 									<div className='col text-center'>
 										<table className="cards">
-											<tr>
-												{ this.state.dealer.cards.map((card, i) => {
-													return <Card key={i} number={card.number} suit={card.suit}/>;
-												}) }
-											</tr>
+											<tbody>
+												<tr>
+													{ this.state.dealer.cards.map((card, i) => {
+														return <Card key={i} number={card.number} suit={card.suit}/>;
+													}) }
+												</tr>
+											</tbody>
 										</table>
 										<p>Dealer's Hand ({ this.state.dealer.count })</p>
 									</div>
@@ -267,11 +277,13 @@ class Play extends Component {
 									<div className='col text-center'>
 										<p>Your Hand ({ this.state.player.count })</p>
 										<table className="cards">
-											<tr>
-												{ this.state.player.cards.map((card, i) => {
-													return <Card key={i} number={card.number} suit={card.suit}/>
-												}) }
-											</tr>
+											<tbody>
+												<tr>
+													{ this.state.player.cards.map((card, i) => {
+														return <Card key={i} number={card.number} suit={card.suit}/>
+													}) }
+												</tr>
+											</tbody>
 										</table>
 									</div>
 								</div>
@@ -311,12 +323,13 @@ class Play extends Component {
 										<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
 										<button className="btn btn-light" onClick={() => {this.stand()}}>Stand</button>
 										<button className="btn btn-danger">x2</button>
-										<button className="btn btn-dark">Checkout</button>
+										<button className="btn btn-dark" onClick={() => {this.handleCheckout()}}>Checkout</button>
 									</div>
 								</>
 							: null
 						}
 					</div>
+					{this.state.checkedOut && <Redirect to="/blackjack/result" />}
 				</>
 			)
 		}
@@ -337,7 +350,6 @@ class Play extends Component {
         dealerCount = card1;
       }
     }
-		console.log(this.props)
 
     return (
 			<div>
@@ -360,4 +372,10 @@ const Card = ({ number, suit }) => {
   );
 }
 
-export default Play
+const mapDispatchToProps = dispatch => {
+	return {
+		updatePlayerScore: (player_id, latest_score) => dispatch(updatePlayerScore(player_id, latest_score))
+	}
+}
+
+export default connect(null, mapDispatchToProps)(Play)

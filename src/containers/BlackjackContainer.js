@@ -12,6 +12,7 @@ import FormContainer from './FormContainer'
 import Play from '../components/Play'
 import ProfitDisplay from '../components/ProfitDisplay'
 import { fetchGame, fetchCurrentPlayer } from '../actions/playerActions'
+import Result from '../components/Result'
 
 function importAll(r) {
 	let images = {};
@@ -81,6 +82,9 @@ class BlackjackContainer extends Component {
 					</Route>
 					<Route exact path={`/blackjack/play`}>
 						<Play game={game} current_player={current_player}/>
+					</Route>
+					<Route exact path={'/blackjack/result'}>
+						<Result latest_score={current_player.latest_score} fetchGame={fetchGame}/>
 					</Route>
 				</Switch>
 			</div>
