@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { updatePlayerScore } from '../actions/playerActions'
+import Card from './Card'
 
 class Play extends Component {
 
@@ -23,7 +24,7 @@ class Play extends Component {
 
   generateDeck = () => {
     const cards = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'];
-    const suits = ['♦','♣','♥','♠'];
+    const suits = ['D','S','H','C'];
     const deck = [];
     for (let i = 0; i < cards.length; i++) {
       for (let j = 0; j < suits.length; j++) {
@@ -360,18 +361,7 @@ class Play extends Component {
   }
 };
 
-const Card = ({ number, suit }) => {
-  const combo = (number) ? `${number}${suit}` : null;
-  const color = (suit === '♦' || suit === '♥') ? 'card-red' : 'card';
 
-  return (
-    <td>
-      <div className={color}>
-        { combo }
-      </div>
-    </td>
-  );
-}
 
 const mapDispatchToProps = dispatch => {
 	return {
