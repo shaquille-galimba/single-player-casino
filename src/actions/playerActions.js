@@ -8,6 +8,7 @@ export const fetchGame = () => {
 		.then(game => {
 			dispatch({ type: 'ADD_GAME', game: {...game.data.attributes, id: game.data.id}})
 		})
+		.catch(error => console.log(error));
 	}
 }
 
@@ -26,6 +27,7 @@ export const fetchCurrentPlayer = name => {
 		.then(player => {
 			dispatch({ type: 'ADD_CURRENT_PLAYER', current_player: {...player.data.attributes, id: player.data.id}})
 		})
+		.catch(error => console.log(error));
 	}
 }
 
