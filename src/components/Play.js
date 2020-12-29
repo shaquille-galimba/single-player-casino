@@ -262,16 +262,10 @@ class Play extends Component {
 						this.state.currentBet ?
 							<>
 								<div className='row'>
-									<div className='col text-center'>
-										<table className="cards">
-											<tbody>
-												<tr>
-													{ this.state.dealer.cards.map((card, i) => {
-														return <Card key={i} number={card.number} suit={card.suit}/>;
-													}) }
-												</tr>
-											</tbody>
-										</table>
+									<div className="col text-center">
+										{ this.state.dealer.cards.map((card, i) => {
+											return <Card key={i} number={card.number} suit={card.suit}/>;
+										}) }
 										<p>Dealer's Hand ({ this.state.dealer.count })</p>
 									</div>
 								</div>
@@ -285,15 +279,9 @@ class Play extends Component {
 								<div className='row'>
 									<div className='col text-center'>
 										<p>Your Hand ({ this.state.player.count })</p>
-										<table className="cards">
-											<tbody>
-												<tr>
-													{ this.state.player.cards.map((card, i) => {
-														return <Card key={i} number={card.number} suit={card.suit}/>
-													}) }
-												</tr>
-											</tbody>
-										</table>
+										{ this.state.player.cards.map((card, i) => {
+											return <Card key={i} number={card.number} suit={card.suit}/>
+										}) }
 									</div>
 								</div>
 							</>
