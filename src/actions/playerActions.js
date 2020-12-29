@@ -51,5 +51,6 @@ export const updatePlayerScore = (player_id, latest_score) => {
 				dispatch({ type: 'ADD_GAME', game: {...game.data.attributes, id: game.data.id}})
 			})
 		})
+		.catch(error => console.log(error));
 	}
 }

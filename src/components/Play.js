@@ -67,7 +67,7 @@ class Play extends Component {
           message: null
         });
       } else {
-        this.setState({ message: 'Game over! You are broke! Please start a new game.' });
+        this.setState({ message: 'Game over! You are broke! Please checkout.' });
       }
     } else {
       const deck = this.generateDeck();
@@ -126,7 +126,7 @@ class Play extends Component {
         this.setState({ message: 'Please place bet.' });
       }
     } else {
-      this.setState({ message: 'Game over! Please start a new game.' });
+      this.setState({ message: 'Game over! Please checkout.' });
     }
   }
 
@@ -145,9 +145,6 @@ class Play extends Component {
       } else if (card.number) {
         rearranged.unshift(card);
       }
-
-
-      // (card.number === 'A') ? rearranged.push(card) : rearranged.unshift(card);
     });
 
     return rearranged.reduce((total, card) => {
@@ -163,15 +160,12 @@ class Play extends Component {
 
   stand = () =>  {
     if (!this.state.gameOver) {
-      // Show dealer's 2nd card
       const randomCard = this.getRandomCard(this.state.deck);
       let deck = randomCard.updatedDeck;
       let dealer = this.state.dealer;
       dealer.cards.pop();
       dealer.cards.push(randomCard.randomCard);
       dealer.count = this.getCount(dealer.cards);
-
-      // Keep drawing cards until count is 17 or more
       while(dealer.count < 17) {
         const draw = this.dealerDraw(dealer, deck);
         dealer = draw.dealer;
@@ -210,7 +204,7 @@ class Play extends Component {
         });
       }
     } else {
-      this.setState({ message: 'Game over! Please start a new game.' });
+      this.setState({ message: 'Game over! Please checkout.' });
     }
   }
 
@@ -230,15 +224,28 @@ class Play extends Component {
   }
 
 	handleCheckout = () => {
-		this.props.updatePlayerScore(this.props.current_player.id, this.state.wallet)
 		this.setState({ checkedOut: true })
 	}
 
-  componentWillMount = () =>  {
+  componentDidMount() {
     this.startNewGame();
+
+		window.onbeforeunload = function() {
+			 this.onUnload();
+			 return "";
+	 }.bind(this);
   }
 
+	onUnload = () => {
+	  this.props.updatePlayerScore(this.props.current_player.id, this.state.wallet)
+	}
+
+	componentWillUnmount() {
+		this.props.updatePlayerScore(this.props.current_player.id, this.state.wallet)
+	}
+
 	handleEmptyCurrentPlayer = () => {
+
 		if (Object.keys(this.props.current_player).length === 0) {
 			return (
 				<div className='row d-flex align-items-center'>
@@ -247,6 +254,7 @@ class Play extends Component {
 					</div>
 				</div>)
 		} else {
+
 			return (
 				<>
 					{
@@ -296,18 +304,22 @@ class Play extends Component {
 							<p>Wallet: ${ this.state.wallet }</p>
 							{
 								!this.state.currentBet ?
-									<div className="input-bet">
-										<form onSubmit={(e) => {this.placeBet(e)}}>
-											<input className="field" type="number" name="bet" placeholder="" autoComplete="off" step={50} value={this.state.inputValue} onChange={this.inputChange.bind(this)}/>
-											<input type="submit" className="btn btn-primary btn-sm" value="Place Bet"/>
-										</form>
-									</div>
+									<>
+										<div className="input-bet">
+											<form onSubmit={(e) => {this.placeBet(e)}}>
+												<input className="field" type="number" name="bet" placeholder="" autoComplete="off" step={50} value={this.state.inputValue} onChange={this.inputChange.bind(this)}/>
+												<input type="submit" className="btn btn-primary btn-sm" value="Place Bet"/>
+											</form>
+										</div>
+										<button className="btn btn-dark btn-sm" onClick={() => {this.handleCheckout()}}>Checkout</button>
+									</>
 								: null
 							}
 							{
 								this.state.gameOver ?
 									<div className="buttons">
 										<button className="btn btn-primary btn-sm" onClick={() => {this.startNewGame('continue')}}>Continue</button>
+										<button className="btn btn-dark btn-sm" onClick={() => {this.handleCheckout()}}>Checkout</button>
 									</div>
 								: null
 							}
@@ -323,7 +335,7 @@ class Play extends Component {
 										<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
 										<button className="btn btn-light" onClick={() => {this.stand()}}>Stand</button>
 										<button className="btn btn-danger">x2</button>
-										<button className="btn btn-dark" onClick={() => {this.handleCheckout()}}>Checkout</button>
+
 									</div>
 								</>
 							: null
@@ -335,21 +347,10 @@ class Play extends Component {
 		}
 	}
 
+
+
   render() {
-    let dealerCount;
-    const card1 = this.state.dealer.cards[0].number;
-    const card2 = this.state.dealer.cards[1].number;
-    if (card2) {
-      dealerCount = this.state.dealer.count;
-    } else {
-      if (card1 === 'J' || card1 === 'Q' || card1 === 'K') {
-        dealerCount = 10;
-      } else if (card1 === 'A') {
-        dealerCount = 11;
-      } else {
-        dealerCount = card1;
-      }
-    }
+
 
     return (
 			<div>

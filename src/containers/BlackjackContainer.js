@@ -84,7 +84,7 @@ class BlackjackContainer extends Component {
 						<Play game={game} current_player={current_player}/>
 					</Route>
 					<Route exact path={'/blackjack/result'}>
-						<Result latest_score={current_player.latest_score} fetchGame={fetchGame}/>
+						<Result current_player={current_player} fetchGame={fetchGame}/>
 					</Route>
 				</Switch>
 			</div>
