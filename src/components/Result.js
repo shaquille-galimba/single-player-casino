@@ -7,7 +7,7 @@ class Result extends Component {
 		return (
 			<div className="row">
 				<div className='col text-center'>
-					Thank you for playing {name}, you won ${latest_score - 1000}!
+					Thank you for playing {name}, you won ${latest_score}!
 				</div>
 			</div>
 		)

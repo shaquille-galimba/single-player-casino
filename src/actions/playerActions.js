@@ -33,7 +33,7 @@ export const fetchCurrentPlayer = name => {
 
 export const updatePlayerScore = (player_id, latest_score) => {
 	return (dispatch) => {
-		const data = { latest_score: latest_score }
+		const data = { latest_score: latest_score - 1000 }
 
 		fetch(`${api_url}/games/1/players/${player_id}`, {
 			method: 'PATCH',
@@ -54,5 +54,17 @@ export const updatePlayerScore = (player_id, latest_score) => {
 			})
 		})
 		.catch(error => console.log(error));
+	}
+}
+
+export const fetchHighscores = () => {
+	return (dispatch) => {
+		dispatch({ type: 'LOADING_HIGHSCORES'})
+		fetch(`${api_url}/games/1/players/highscores`)
+		.then(response => response.json())
+		.then(response => {
+			dispatch({ type: 'ADD_HIGHSCORES', highscores: [...response.data] })
+		})
+		// .catch(error => console.log(error));
 	}
 }

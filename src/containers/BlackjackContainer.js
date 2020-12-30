@@ -13,6 +13,7 @@ import Play from '../components/Play'
 import ProfitDisplay from '../components/ProfitDisplay'
 import { fetchGame, fetchCurrentPlayer } from '../actions/playerActions'
 import Result from '../components/Result'
+import Highscores from '../components/Highscores'
 
 class BlackjackContainer extends Component {
 
@@ -32,7 +33,7 @@ class BlackjackContainer extends Component {
 	handleLoading = () => {
 		if (this.props.loading) {
 			return (
-				<div  className="text-center">
+				<div className="text-center">
 					<Spinner animation="border" role="status">
 						<span className="sr-only">Loading...</span>
 					</Spinner>
@@ -55,7 +56,9 @@ class BlackjackContainer extends Component {
 						</Link>
 					</div>
 					<div className="col text-center">
-						<button className="btn btn-dark btn-sm">High scores</button>
+						<Link to={'/blackjack/highscores'}>
+							<button className="btn btn-dark btn-sm">High scores</button>
+						</Link>
 					</div>
 				</div>
 			)
@@ -77,6 +80,9 @@ class BlackjackContainer extends Component {
 					</Route>
 					<Route exact path={'/blackjack/result'}>
 						<Result current_player={current_player} fetchGame={fetchGame}/>
+					</Route>
+					<Route exact path={'/blackjack/highscores'}>
+						<Highscores />
 					</Route>
 				</Switch>
 			</div>
