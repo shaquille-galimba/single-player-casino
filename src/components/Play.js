@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { updatePlayerScore } from '../actions/playerActions'
-import Card from './Card'
+import Table from './Table'
+import BetForm from './BetForm'
 
 class Play extends Component {
 
@@ -230,16 +231,7 @@ class Play extends Component {
 
   componentDidMount() {
     this.startNewGame();
-
-		window.onbeforeunload = function() {
-			 this.onUnload();
-			 return "";
-	 }.bind(this);
   }
-
-	onUnload = () => {
-	  this.props.updatePlayerScore(this.props.current_player.id, this.state.wallet)
-	}
 
 	componentWillUnmount() {
 		this.props.updatePlayerScore(this.props.current_player.id, this.state.wallet)
@@ -260,48 +252,16 @@ class Play extends Component {
 				<>
 					{
 						this.state.currentBet ?
-							<>
-								<div className='row'>
-									<div className="col text-center">
-										{ this.state.dealer.cards.map((card, i) => {
-											return <Card key={i} number={card.number} suit={card.suit}/>;
-										}) }
-										<p>Dealer's Hand ({ this.state.dealer.count })</p>
-									</div>
-								</div>
-
-								<div className='row'>
-									<div className='col text-center'>
-										{ this.state.message }
-									</div>
-								</div>
-
-								<div className='row'>
-									<div className='col text-center'>
-										<p>Your Hand ({ this.state.player.count })</p>
-										{ this.state.player.cards.map((card, i) => {
-											return <Card key={i} number={card.number} suit={card.suit}/>
-										}) }
-									</div>
-								</div>
-							</>
+							<Table dealer={this.state.dealer} player={this.state.player} message={this.state.message}/>
 						: null
 					}
-
 					<div className='row'>
 						<div className='col text-center'>
 							<p>Wallet: ${ this.state.wallet }</p>
 							{
 								!this.state.currentBet ?
-									<>
-										<div className="input-bet">
-											<form onSubmit={(e) => {this.placeBet(e)}}>
-												<input className="field" type="number" name="bet" placeholder="" autoComplete="off" step={50} value={this.state.inputValue} onChange={this.inputChange.bind(this)}/>
-												<input type="submit" className="btn btn-primary btn-sm" value="Place Bet"/>
-											</form>
-										</div>
-										<button className="btn btn-dark btn-sm" onClick={() => {this.handleCheckout()}}>Checkout</button>
-									</>
+
+									<BetForm placeBet={this.placeBet} inputValue={this.state.inputValue} inputChange={this.inputChange} handleCheckout={this.handleCheckout}/>
 								: null
 							}
 							{
@@ -323,8 +283,6 @@ class Play extends Component {
 										<p>Current Bet: ${this.state.currentBet}</p>
 										<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
 										<button className="btn btn-light" onClick={() => {this.stand()}}>Stand</button>
-										<button className="btn btn-danger">x2</button>
-
 									</div>
 								</>
 							: null
