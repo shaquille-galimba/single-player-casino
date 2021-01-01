@@ -7,7 +7,7 @@ function importAll(r) {
 const images = importAll(require.context('../assets', false, /\.(png|jpe?g|svg)$/));
 
 const Card = ({ number, suit }) => {
-  const combo = (number) ? `${number}${suit}` : 'purple_back';
+  const combo = (number) ? `${number}${suit}` : 'red_back';
   // const color = (suit === '♦' || suit === '♥') ? 'card-red' : 'card';
 
   return (
