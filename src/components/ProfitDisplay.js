@@ -8,7 +8,6 @@ const ProfitDisplay = props => {
 			placement="bottom"
 			overlay={
 				<Popover>
-					{/* <Popover.Title as="h3">{props.title} profit</Popover.Title> */}
 					<Popover.Content>
 						{props.title} has a total earnings of <strong>{props.content}$</strong>
 					</Popover.Content>

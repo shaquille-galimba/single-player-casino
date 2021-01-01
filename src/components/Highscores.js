@@ -19,7 +19,6 @@ class Highscores extends Component {
 				</div>
 			)
 		} else {
-			// console.log(this.props.highscores)
 			return this.props.highscores.map(player => (
 				<div className='row' key={player.id}>
 					<div className="col text-center">

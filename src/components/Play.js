@@ -42,10 +42,13 @@ class Play extends Component {
     const playerStartingHand = [playerCard1.randomCard, playerCard2.randomCard];
     const dealerStartingHand = [dealerCard1.randomCard, {}];
 
+		// deal player's starting hand with 2 face up cards
     const player = {
       cards: playerStartingHand,
       count: this.getCount(playerStartingHand)
     };
+
+		// deal dealer's starting hand with 1 face up card and a face down card
     const dealer = {
       cards: dealerStartingHand,
       count: this.getCount(dealerStartingHand)
@@ -55,7 +58,9 @@ class Play extends Component {
   }
 
   startNewGame = (type) =>  {
+		// check if a player is currently on a game, if not start a new game
     if (type === 'continue') {
+			// check to see if a player has money left then continue the game, if not display a game over message
       if (this.state.wallet > 0) {
         const deck = (this.state.deck.length < 10) ? this.generateDeck() : this.state.deck;
         const { updatedDeck, player, dealer } = this.dealCards(deck);
@@ -229,16 +234,18 @@ class Play extends Component {
 		this.setState({ checkedOut: true })
 	}
 
+	// start a new game on the first time the component mounts
   componentDidMount() {
     this.startNewGame();
   }
 
+	// update player score and profit if the component umounts
 	componentWillUnmount() {
 		this.props.updatePlayerScore(this.props.current_player.id, this.state.wallet)
 	}
 
 	handleEmptyCurrentPlayer = () => {
-
+		// prompt the user to start a new game if they somehow end up in the component without typing a name
 		if (Object.keys(this.props.current_player).length === 0) {
 			return (
 				<div className='row d-flex align-items-center'>
@@ -250,20 +257,14 @@ class Play extends Component {
 
 			return (
 				<>
-					{
-						this.state.currentBet ?
-							<Table dealer={this.state.dealer} player={this.state.player} message={this.state.message}/>
-						: null
-					}
+					{/* display table only if there was already a bet */}
+					{	this.state.currentBet ?	<Table dealer={this.state.dealer} player={this.state.player} message={this.state.message}/>	: null	}
 					<div className='row'>
 						<div className='col text-center'>
 							<p>Wallet: ${ this.state.wallet }</p>
-							{
-								!this.state.currentBet ?
-
-									<BetForm placeBet={this.placeBet} inputValue={this.state.inputValue} inputChange={this.inputChange} handleCheckout={this.handleCheckout}/>
-								: null
-							}
+							{/* display bet form only if there's no current bet */}
+							{	!this.state.currentBet ?	<BetForm placeBet={this.placeBet} inputValue={this.state.inputValue} inputChange={this.inputChange} handleCheckout={this.handleCheckout}/>	: null	}
+							{/* when someone wins on a deal show checkout and continue button */}
 							{
 								this.state.gameOver ?
 									<div className="buttons">
@@ -276,28 +277,25 @@ class Play extends Component {
 					</div>
 
 					<div className='row'>
+						{/* only display casino buttons when a user has a current bet */}
 						{
 							this.state.currentBet ?
-								<>
-									<div className='col text-center'>
-										<p>Current Bet: ${this.state.currentBet}</p>
-										<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
-										<button className="btn btn-light" onClick={() => {this.stand()}}>Stand</button>
-									</div>
-								</>
+								<div className='col text-center'>
+									<p>Current Bet: ${this.state.currentBet}</p>
+									<button className="btn btn-danger" onClick={() => {this.hit()}}>Hit</button>
+									<button className="btn btn-light" onClick={() => {this.stand()}}>Stand</button>
+								</div>
 							: null
 						}
 					</div>
+					{/* if the player checks out, render the result of their game */}
 					{this.state.checkedOut && <Redirect to="/blackjack/result" />}
 				</>
 			)
 		}
 	}
 
-
-
   render() {
-
 
     return (
 			<div>
@@ -306,8 +304,6 @@ class Play extends Component {
     );
   }
 };
-
-
 
 const mapDispatchToProps = dispatch => {
 	return {
