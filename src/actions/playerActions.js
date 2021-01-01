@@ -65,6 +65,6 @@ export const fetchHighscores = () => {
 		.then(response => {
 			dispatch({ type: 'ADD_HIGHSCORES', highscores: [...response.data] })
 		})
-		// .catch(error => console.log(error));
+		.catch(error => console.log(error));
 	}
 }
