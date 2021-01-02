@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Spinner from 'react-bootstrap/Spinner'
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
 	Link
