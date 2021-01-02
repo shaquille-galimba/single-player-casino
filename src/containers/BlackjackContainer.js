@@ -78,7 +78,7 @@ class BlackjackContainer extends Component {
 						<Play game={game} current_player={current_player}/>
 					</Route>
 					<Route exact path={'/blackjack/result'}>
-						<Result current_player={current_player} fetchGame={fetchGame}/>
+						<Result current_player={current_player} />
 					</Route>
 					<Route exact path={'/blackjack/highscores'}>
 						<Highscores />
